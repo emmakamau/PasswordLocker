@@ -1,7 +1,47 @@
 #!/usr/bin/env python3.8
 
+from string import digits
 from credentials import Credential
 from user import User
+import random
+import array
+
+#Password generator - https://www.geeksforgeeks.org/generating-strong-password-using-python/
+def password_gen():
+    max_len = 8
+    digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    lower_case_characters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+                     'i', 'j', 'k', 'm', 'n', 'o', 'p', 'q',
+                     'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+                     'z']
+ 
+    upper_case_characters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+                        'I', 'J', 'K', 'M', 'N', 'O', 'P', 'Q',
+                        'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
+                        'Z']
+    
+    symbols = ['@', '#', '$', '%', '=', ':', '?', '.', '/', '|', '~', '>',
+            '*', '(', ')', '<']
+
+    put_together = digits + upper_case_characters + lower_case_characters + symbols
+
+    rand_digit = random.choice(digits)
+    rand_upper = random.choice(upper_case_characters)
+    rand_lower = random.choice(lower_case_characters)
+    rand_symbol = random.choice(symbols)
+
+    temp_pass = rand_digit + rand_upper + rand_lower + rand_symbol
+
+    for x in range(max_len - 4):
+        temp_pass = temp_pass + random.choice(put_together)
+ 
+    temp_pass_list = array.array('u', temp_pass)
+    random.shuffle(temp_pass_list)
+
+    password = ""
+    for x in temp_pass_list:
+        password = password + x
+    return password
 
 #Create new user
 def create_user(username,password,credential:Credential):
@@ -81,9 +121,17 @@ def passwordLocker():
                         account = input("Enter account type e.g facebook: ").lower()
                         username = input("Enter username for account: ")
                         email = input("Enter email account used for account registration: ")
-                        password = input("Enter password for the account: ")
 
-                        save_credential(create_credential(account,username,email,password))
+                        print(f"Would you like to generate a password for your {account} account? yes or no")
+                        preference = input().lower()
+                        if preference == "yes":
+                            password = str(password_gen())
+                            print(page_separator)
+                            print(f"Please note password for {account} account is {password}")
+                        elif preference == "no":
+                            password = input("Enter password for the account: ")
+                        else:
+                            print(error_response)
                         print(page_separator)
                         print(f"Password for your {account} account has been saved.") 
                         print(page_separator)
@@ -127,7 +175,11 @@ def passwordLocker():
                     print("Would you like a system generated password? Shortcode: yes or no")
                     shortcode = input().lower()
                     if shortcode == "yes":
-                        print("Cool")
+                        password = password_gen()
+                        print(page_separator)
+                        print(f"Your password is: {password}")
+                        print("Kindly take note of your password")
+                        print(page_separator)
                     elif shortcode == "no":
                         password = input("Enter password: ")
                         save_user(create_user(username,password,[]))
