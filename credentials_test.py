@@ -76,6 +76,5 @@ class TestCredential(unittest.TestCase):
     def test_display_all_credential(self):
         self.assertEqual(Credential.display_credentials(),Credential.credential_list)
 
-
 if __name__ == '__main__':
     unittest.main()
