@@ -25,6 +25,12 @@ class TestCredential(unittest.TestCase):
     def tearDown(self):
         Credential.credential_list = []
 
+    # Testcase1 - Test if object is initialized properly
+    def test_init(self):
+        self.assertEqual(self.new_credential.account,"Twitter")
+        self.assertEqual(self.new_credential.username,"janedoe")
+        self.assertEqual(self.new_credential.email,"jane@example.com")
+        self.assertEqual(self.new_credential.password,"J@n3%2D0#")
 
 if __name__ == '__main__':
     unittest.main()
