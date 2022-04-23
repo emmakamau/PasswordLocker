@@ -16,4 +16,12 @@ class User():
     def delete_user(self):
         User.user_list.remove(self)
 
+    #Check if user exists
+    @classmethod
+    def user_exists(cls,username):
+        for user in cls.user_list:
+            if user.username == username:
+                return True
+        return False
+
     pass
