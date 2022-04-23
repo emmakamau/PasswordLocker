@@ -15,6 +15,9 @@ class TestUser(unittest.TestCase):
     def setUp(self):
         self.new_user = User("janedoe","j@Z3603",[])
 
+    def tearDown(self) -> None:
+        User.user_list = []
+
     #Test if user is initialized
     def test_init(self):
         self.assertEqual(self.new_user.username,"janedoe")
