@@ -2,8 +2,9 @@
 BDD - Basis of our tests
 1. Create a credential
 2. Save a credential
-3. Display credential
-4. Delete credential
+3. Save more than one credential
+4. Display credential
+5. Delete credential
     *Credential should have:
         a.)Name of the account
         b.)Username
@@ -43,6 +44,22 @@ class TestCredential(unittest.TestCase):
         test_credential = Credential("Facebook","JaneDoe","jane@example.com","jaN3@do3")
         test_credential.save_credential()
         self.assertEqual(len(Credential.credential_list),2)
+
+    # Testcase4 - Test if we can delete a credential
+    def test_delete_credential(self):
+        self.new_credential.save_credential()
+        test_credential = Credential("Facebook","JaneDoe","jane@example.com","jaN3@do3")
+        test_credential.delete_credential()
+        self.assertEqual(len(Credential.credential_list),1)
+
+    # Testcase5 - Find credential by account name
+    def test_find_credential_by_account(self):
+        self.new_credential.save_credential()
+        test_credential = Credential("Facebook","JaneDoe","jane@example.com","jaN3@do3")
+        test_credential.save_credential()
+
+        found_account = Credential.find_by_account("Facebook")
+        self.assertEqual(found_account.password,test_credential.password)
 
 
 if __name__ == '__main__':
