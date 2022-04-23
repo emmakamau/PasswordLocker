@@ -24,4 +24,11 @@ class User():
                 return True
         return False
 
+    #Find user
+    @classmethod
+    def find_user(cls,username):
+        for user in cls.user_list:
+            if user.username == username:
+                return username
+
     pass
