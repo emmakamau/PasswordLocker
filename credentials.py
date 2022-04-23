@@ -32,5 +32,10 @@ class Credential:
                 return True
         return False
 
+    #Display credentials
+    @classmethod
+    def display_credentials(cls):
+        return cls.credential_list
+
 
     pass
