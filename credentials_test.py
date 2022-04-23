@@ -32,5 +32,18 @@ class TestCredential(unittest.TestCase):
         self.assertEqual(self.new_credential.email,"jane@example.com")
         self.assertEqual(self.new_credential.password,"J@n3%2D0#")
 
+    # Testcase2 - Test if object is saved
+    def test_save_credential(self):
+        self.new_credential.save_credential()
+        self.assertEqual(len(Credential.credential_list),1)
+
+    # Testcase3 - Test if we can save multiple credentials
+    def test_save_multiple_credentials(self):
+        self.new_credential.save_credential()
+        test_credential = Credential("Facebook","JaneDoe","jane@example.com","jaN3@do3")
+        test_credential.save_credential()
+        self.assertEqual(len(Credential.credential_list),2)
+
+
 if __name__ == '__main__':
     unittest.main()
