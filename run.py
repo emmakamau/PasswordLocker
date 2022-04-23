@@ -54,9 +54,12 @@ def display_credential():
 
 def passwordLocker():
     error_response = "I really didn't get that. Please use the short codes"
+    bye_msg = "Bye bye, It was nice having you here."
+    page_separator = "-"*50
+    new_line = "\n"
     
     while True:
-        print("Hello, Welcome to Password Locker. Do you have an account with us? shortcode: yes or no")
+        print("Hello, Welcome to Password Locker. Do you have an account with us? Answer with yes or no")
         acc_available_ans = input().lower()
         if acc_available_ans == "yes":
             username = input("Enter Username: ").lower()
@@ -65,15 +68,51 @@ def passwordLocker():
             if user_exist(username):
                 search_user = find_user(username)
                 response = search_user.capitalize()
-                print(f"Login successful {response}")
-                print("\n")
+                print(page_separator)
+                print(f"Hey, {response} Login is successful")
+                print(page_separator)
                 while True:
                     print("Use these short codes : cc - create a new credential, dc - display credential, fc -find a credential, ex -exit the credential list")
 
                     shortcode = input().lower()
+                    if shortcode == "cc":
+                        print("New Credentials")
+                        print(page_separator)
+                        account = input("Enter account type e.g facebook: ").lower()
+                        username = input("Enter username for account: ")
+                        email = input("Enter email account used for account registration: ")
+                        password = input("Enter password for the account: ")
+
+                        save_credential(create_credential(account,username,email,password))
+                        print(page_separator)
+                        print(f"Password for your {account} account has been saved.") 
+                        print(page_separator)
+                    elif shortcode == "dc":
+                        if display_credential():
+                            print("Here is a list of all your saved credentials:")
+                            print(page_separator)
+                            for credential in Credential.credential_list:
+                                print(f"Account:{credential.account}, Username:{credential.username},Email:{credential.email}, Password:{credential.password}")
+                            print(page_separator)
+                        else:
+                            print("No credentials have been added")
+                    elif shortcode == "fc":
+                        search = input("Enter account name you are searching for: ").lower()
+                        if credential_exist(search):
+                            search_acc = find_credential(search)
+                            print(page_separator)
+                            print(f"Account:{search_acc.account}, Username:{search_acc.username},Email:{search_acc. email}, Password:{search_acc.password}")
+                            print(page_separator)
+                        else:
+                            print("Credential does not exist")
+                    elif shortcode == "ex":
+                        print(bye_msg)
+                    else:
+                        print(error_response)
             else:
-                print("\n")
+                print(new_line)
                 print("User does not exist")
+                print(new_line)
         elif acc_available_ans == "no":
             print("\n")
             print("Use these short codes : cc - create a user account, ex - Exit the application")
@@ -92,12 +131,13 @@ def passwordLocker():
                     elif shortcode == "no":
                         password = input("Enter password: ")
                         save_user(create_user(username,password,[]))
+                        print(page_separator)
                         print(f"Hey {show_username},Let's log you in and add some credentials for safe keeping.")
-                        print("\n")
+                        print(page_separator)
                     else:
                         print(error_response)
             elif shortcode == "ex":
-                print("Bye bye, It was nice having you here.")
+                print(bye_msg)
 
         else:
             print(error_response)
