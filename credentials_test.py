@@ -49,6 +49,8 @@ class TestCredential(unittest.TestCase):
     def test_delete_credential(self):
         self.new_credential.save_credential()
         test_credential = Credential("Facebook","JaneDoe","jane@example.com","jaN3@do3")
+        test_credential.save_credential()
+
         test_credential.delete_credential()
         self.assertEqual(len(Credential.credential_list),1)
 
@@ -59,7 +61,7 @@ class TestCredential(unittest.TestCase):
         test_credential.save_credential()
 
         found_account = Credential.find_by_account("Facebook")
-        self.assertEqual(found_account.password,test_credential.password)
+        self.assertEqual(found_account,test_credential.account)
 
     # Testcase6 - Check if credential exists using account
     def test_credential_exist(self):
