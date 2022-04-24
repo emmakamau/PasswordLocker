@@ -60,8 +60,8 @@ class TestCredential(unittest.TestCase):
         test_credential = Credential("Facebook","JaneDoe","jane@example.com","jaN3@do3")
         test_credential.save_credential()
 
-        found_account = Credential.find_by_account("Facebook")
-        self.assertEqual(found_account,test_credential.account)
+        found_account = Credential.find_by_account('Facebook')
+        self.assertEqual(found_account.email,test_credential.email)
 
     # Testcase6 - Check if credential exists using account
     def test_credential_exist(self):

@@ -21,7 +21,7 @@ class Credential:
     def find_by_account(cls,account):
         for credential in cls.credential_list:
             if credential.account == account:
-                return account
+                return credential
 
     #Check if credential exists
     @classmethod

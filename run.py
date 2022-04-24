@@ -95,10 +95,11 @@ def display_credential():
 def passwordLocker():
     error_response = "I really didn't get that. Please use the short codes"
     bye_msg = "Bye bye, It was nice having you here."
-    page_separator = "-"*50
+    page_separator = "-"*60
     new_line = "\n"
     
     while True:
+        print(new_line)
         print("Hello, Welcome to Password Locker. Do you have an account with us? Answer with yes or no")
         acc_available_ans = input().lower()
         if acc_available_ans == "yes":
@@ -112,8 +113,8 @@ def passwordLocker():
                 print(f"Hey, {response} Login is successful")
                 print(page_separator)
                 while True:
+                    print(new_line)
                     print("Use these short codes : cc - create a new credential, dc - display credential, fc -find a credential, ex -exit the credential list")
-
                     shortcode = input().lower()
                     if shortcode == "cc":
                         print("New Credentials")
@@ -127,20 +128,21 @@ def passwordLocker():
                         if preference == "yes":
                             password = str(password_gen())
                             print(page_separator)
-                            print(f"Please note password for {account} account is {password}")
                         elif preference == "no":
                             password = input("Enter password for the account: ")
                         else:
                             print(error_response)
-                        print(page_separator)
-                        print(f"Password for your {account} account has been saved.") 
-                        print(page_separator)
+                        save_credential(create_credential(account,username,email,password))
+                        print(f"Credentials for {account} have been saved.")
+                        print(new_line)
                     elif shortcode == "dc":
                         if display_credential():
                             print("Here is a list of all your saved credentials:")
                             print(page_separator)
+                            print("Here is a list of your credentials:")
+                            print(new_line)
                             for credential in Credential.credential_list:
-                                print(f"Account:{credential.account}, Username:{credential.username},Email:{credential.email}, Password:{credential.password}")
+                                print(f"Account:{credential.account}, Username:{credential.username}, Email:{credential.email}, Password:{credential.password}")
                             print(page_separator)
                         else:
                             print("No credentials have been added")
@@ -154,7 +156,8 @@ def passwordLocker():
                         else:
                             print("Credential does not exist")
                     elif shortcode == "ex":
-                        print(bye_msg)
+                        input("Type ex to confirm exit: ")
+                        return
                     else:
                         print(error_response)
             else:
@@ -172,27 +175,26 @@ def passwordLocker():
                     search_user = find_user(username)
                     print("Username exists, use another username")
                 else:
+                    print(new_line)
                     print("Would you like a system generated password? Shortcode: yes or no")
                     shortcode = input().lower()
                     if shortcode == "yes":
                         password = password_gen()
                         print(page_separator)
-                        print(f"Your password is: {password}")
-                        print("Kindly take note of your password")
-                        print(page_separator)
                     elif shortcode == "no":
                         password = input("Enter password: ")
-                        save_user(create_user(username,password,[]))
-                        print(page_separator)
-                        print(f"Hey {show_username},Let's log you in and add some credentials for safe keeping.")
-                        print(page_separator)
                     else:
                         print(error_response)
+                    save_user(create_user(username,password,[]))
+                    print(f"Hey {show_username},Let's log you in and add some credentials for safe keeping.")
+                    print(f"Kindly take note of your password : {password}")
+                    print(page_separator)
             elif shortcode == "ex":
                 print(bye_msg)
-
+                break
         else:
             print(error_response)
+
 
 
 
