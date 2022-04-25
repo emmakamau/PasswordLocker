@@ -134,7 +134,6 @@ def passwordLocker():
                             print(error_response)
                         save_credential(create_credential(account,username,email,password))
                         print(f"Credentials for {account} have been saved.")
-                        print(new_line)
                     elif shortcode == "dc":
                         if display_credential():
                             print("Here is a list of all your saved credentials:")
@@ -163,7 +162,6 @@ def passwordLocker():
             else:
                 print(new_line)
                 print("User does not exist")
-                print(new_line)
         elif acc_available_ans == "no":
             print("\n")
             print("Use these short codes : cc - create a user account, ex - Exit the application")
