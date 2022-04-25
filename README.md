@@ -1,6 +1,8 @@
 #### Password Locker
 An application that allows the user to create an account and save various credentials
 
+https://user-images.githubusercontent.com/42608367/165024131-7b4bc60e-15aa-4a68-ad6e-44c358ea1fed.mp4
+
 ## Contribution
 Emmaculate Kamau
 
